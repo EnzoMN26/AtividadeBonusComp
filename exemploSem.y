@@ -23,7 +23,7 @@
 
 %%
 
-prog : { currClass = ClasseID.VarGlobal; } dList main {ts.listar();} ;
+prog : { currClass = ClasseID.VarGlobal; } dList main ;
 
 dList : decl dList | ;
 

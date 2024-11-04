@@ -39,7 +39,8 @@ NL  = \n|\r|\r\n
 "\{" |
 "\}" |
 "\[" | 
-"\]"    { return (int) yycharat(0); }
+"\]" |
+"\."   { return (int) yycharat(0); }
 
 "&&" { return Parser.AND; }
 
