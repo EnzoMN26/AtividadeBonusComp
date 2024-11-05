@@ -1,5 +1,5 @@
 int i;
-float x;
+double x;
 bool b;
 
 struct DATA {

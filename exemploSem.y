@@ -97,8 +97,8 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
                             }           
                           else {
                             TS_entry nodo2 = ts.pesquisa($3);
-                            if (nodo2 == null || nodo2.getEscopo() != $1){
-                              yyerror("(sem) var <" + $3 + "> nao existe na struct: " + $1); 
+                            if (nodo2 == null || nodo2.getEscopo() != nodo1.getTipo().getId()){
+                              yyerror("(sem) var <" + $1 + "> nao existe na struct: " + $3); 
                               $$ = Tp_ERRO;   
                             }
                             else{
@@ -107,7 +107,6 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
                           }
                           }
        | IDENT '[' exp ']'  { $$ = Tp_ERRO; }
-       | IDENT '.' exp      { $$ = Tp_ERRO; }
 %%
 
   private Yylex lexer;
