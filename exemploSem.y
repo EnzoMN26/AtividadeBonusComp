@@ -35,7 +35,7 @@ decl : type IDENT ';' {  TS_entry nodo = ts.pesquisa($2);
       | STRUCT IDENT '{'{ TS_entry nodo = ts.pesquisa($2);
                           if (nodo != null) 
                             yyerror("(sem) variavel >" + $2 + "< jah declarada");
-                          else ts.insert(new TS_entry($2, (TS_entry)Tp_STRUCT, currClass, currEscopo)); 
+                          else ts.insert(new TS_entry($2, (TS_entry)Tp_STRUCT, ClasseID.NomeStruct, currEscopo)); 
                           currEscopo = $2;
                         } 
                         dList {currEscopo = "";} '}' ';'  
@@ -90,22 +90,16 @@ lvalue :  IDENT   { TS_entry nodo = ts.pesquisa($1);
                     else
                         $$ = nodo.getTipo();
                   } 
-       | IDENT '.' IDENT {TS_entry nodo1 = ts.pesquisa($1);
-                          if (nodo1 == null) {
-                            yyerror("(sem) var <" + $1 + "> nao declarada"); 
-                            $$ = Tp_ERRO;    
-                            }           
-                          else {
+       | lvalue '.' IDENT { TS_entry nodo1 = (TS_entry)$1; 
                             TS_entry nodo2 = ts.pesquisa($3);
-                            if (nodo2 == null || nodo2.getEscopo() != nodo1.getTipo().getId()){
-                              yyerror("(sem) var <" + $1 + "> nao existe na struct: " + $3); 
+                            if (nodo2 == null || !nodo2.getEscopo().equals(nodo1.getId())){
+                              yyerror("(sem) var <" + $3 + "> nao existe na struct: " + nodo1.getId()); 
                               $$ = Tp_ERRO;   
                             }
                             else{
                               $$ = nodo2.getTipo();
                             } 
-                          }
-                          }
+                          ;}
        | IDENT '[' exp ']'  { $$ = Tp_ERRO; }
 %%
 
