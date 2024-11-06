@@ -37,7 +37,8 @@ public class TS_entry
     
    public String toString() {
        StringBuilder aux = new StringBuilder("");
-        
+       if(escopo != "")
+        aux.append("\t");
        aux.append("Id: ");
        aux.append(String.format("%-10s", id));
 

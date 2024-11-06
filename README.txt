@@ -1,7 +1,5 @@
 para executar o programa siga os seguintes comandos:
 
-execute o yylex.java como adm
-
 java -jar JFlex.jar exemploSem.flex
 
 yacc -tv -J exemploSem.y
